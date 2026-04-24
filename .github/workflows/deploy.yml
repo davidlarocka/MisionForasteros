@@ -11,22 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug SSH Key
-        run: |
-          if [ -z "${{ secrets.DO_SSH_KEY }}" ]; then
-            echo "❌ SSH KEY VACIA"
-            exit 1
-          else
-            echo "✅ SSH KEY CARGADA"
-          fi
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.DO_HOST }}
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
+          port: 22
+          script_stop: true
           script: |
-            cd /var/www/misionforasteros
+            echo "🚀 Iniciando deploy..."
+
+            # Ir al proyecto
+            cd /var/www/misionforasteros || exit 1
+
+            # Actualizar repo
             git pull origin main
-            docker compose down
+
+            # Levantar contenedores sin tumbarlos
             docker compose up -d --build
+
+            echo "✅ Deploy completado"
