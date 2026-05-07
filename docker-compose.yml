@@ -32,7 +32,6 @@ services:
       WORDPRESS_DB_NAME: wp_db
     volumes:
       - wp_data:/var/www/html
-      - ./wordpress/wp-content/themes/mision-forasteros:/var/www/html/wp-content/themes/mision-forasteros
       - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
     depends_on:
       - db
