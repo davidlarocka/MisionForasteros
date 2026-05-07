@@ -820,3 +820,53 @@ body {
 .no-results h2 {
     margin-bottom: 10px;
 }
+
+
+.site-footer {
+    width: 100%;
+  }
+  
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+  }
+  
+  /* columnas */
+  .footer-col {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  /* logo */
+  .footer-logo {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  /* links */
+  .footer-center ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-center ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* mobile */
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+  
+    .footer-col {
+      width: 100%;
+    }
+  }
