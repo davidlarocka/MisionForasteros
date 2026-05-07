@@ -1,4 +1,4 @@
-name: Deploy to DO
+name: Deploy a prod DigitalOcenan
 
 on:
   push:
@@ -22,13 +22,20 @@ jobs:
           script: |
             echo "🚀 Iniciando deploy..."
 
-            # Ir al proyecto
             cd /var/www/misionforasteros || exit 1
 
-            # Actualizar repo
+            echo "📥 Pull repo..."
             git pull origin main
 
-            # Levantar contenedores sin tumbarlos
-            docker compose up -d --build
+            echo "📦 Sync theme al contenedor WordPress..."
+            docker cp ./wordpress/wp-content/themes/mision-forasteros \
+            wordpress:/var/www/html/wp-content/themes/
+
+            echo "🔄 Reiniciando PHP + Nginx..."
+            docker restart wordpress
+            docker restart nginx
+
+            echo "🧹 Limpiando caches de WordPress (opcional)"
+            docker exec wordpress bash -c "rm -rf /var/www/html/wp-content/cache || true"
 
             echo "✅ Deploy completado"
