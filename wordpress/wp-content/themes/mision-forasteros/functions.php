@@ -19,19 +19,25 @@ add_filter('intermediate_image_sizes_advanced', function($sizes) {
     return $sizes;
 });
 
+
+
 function theme_assets() {
+
+    $css_path = get_stylesheet_directory() . '/assets/css/style.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/main.js';
+
     wp_enqueue_style(
         'main-style',
         get_stylesheet_directory_uri() . '/assets/css/style.css',
         [],
-        filemtime(get_stylesheet_directory() . '/assets/css/style.css') // 🔥 clave
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'main-js',
         get_stylesheet_directory_uri() . '/assets/js/main.js',
         [],
-        filemtime(get_stylesheet_directory() . '/assets/js/main.js'),
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }
