@@ -10,6 +10,10 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./wordpress:/var/www/html
+
+      # 🔐 CERTIFICADOS MONTADOS DESDE EL HOST
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+
     depends_on:
       - wordpress
     networks:
